@@ -1,0 +1,24 @@
+# Project TODO
+
+- [x] Use the existing `/home/ubuntu/zenith` project folder and do not create another folder named `zenith`
+- [x] Preserve Manus OAuth authentication and persistent sessions without substituting another provider
+- [x] Display the authenticated user profile in the sidebar, not in a top navigation bar or separate page
+- [x] Implement a premium dark-mode app shell with refined typography, meticulous spacing, polished components, responsive desktop and mobile layouts, smooth page transitions, micro-animations, and skeleton loading states
+- [x] Implement dashboard overview with task stats, productivity streaks, upcoming deadlines, and recent activity
+- [x] Implement task CRUD: create, edit, delete, and complete tasks
+- [x] Support task fields: title, description, priority level, due date, tags, project assignment, and completion status
+- [x] Implement task status workflow with exact Kanban columns: To Do, In Progress, Review, Done
+- [x] Implement Kanban board view per project with drag-and-drop between the exact columns To Do, In Progress, Review, Done
+- [x] Implement calendar view displaying tasks by due date with month and week navigation
+- [x] Implement projects sidebar with project creation and management, color labels, task counts, and progress bars
+- [x] Implement filtering and sorting by priority, due date, project, tag, and completion status
+- [x] Implement analytics page with charts for task completion trends, productivity by day and week, and project progress
+- [x] Implement global keyboard shortcuts with exact mappings: N for new task, K for Kanban, C for calendar
+- [x] Implement shortcut reference modal accessible at any time
+- [x] Configure backend persistence for tasks, projects, tags/activity data, and user-specific records
+- [x] Add polished empty states, toast feedback, accessible focus states, and keyboard-friendly interactions
+- [x] Add automated tests covering task/project backend procedures and key data transformations
+- [x] Add Render-friendly deployment configuration and documentation
+- [x] Validate the application with type checks, tests, status checks, and a final checkpoint
+- [x] Push completed code to the provided GitHub repository if repository access is available (no GitHub remote was configured; the internal project remote remains active)
+- [x] Provide final usage and deployment instructions
