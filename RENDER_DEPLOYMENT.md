@@ -20,21 +20,12 @@
    
    | Secret | Value | Notes |
    |--------|-------|-------|
-   | `DATABASE_URL` | Your TimescaleDB connection string | `postgres://tsdbadmin@eo235g5toq.l93na3f960.tsdb.cloud.timescale.com:36713/tsdb?sslmode=require` |
+   | `DATABASE_URL` | `postgres://tsdbadmin:Limeayaan321%21@eo235g5toq.l93na3f960.tsdb.cloud.timescale.com:36713/tsdb?sslmode=require` | Your TimescaleDB connection with password |
    | `JWT_SECRET` | Generate a random 32+ character string | Used for session signing |
-   | `VITE_APP_ID` | From Manus OAuth settings | OAuth application ID |
    | `OAUTH_SERVER_URL` | `https://api.manus.im` | Manus OAuth backend |
-   | `VITE_OAUTH_PORTAL_URL` | From Manus OAuth settings | Manus login portal |
-   | `OWNER_OPEN_ID` | Your Manus user ID | Owner identification |
-   | `OWNER_NAME` | Your name | Owner display name |
-   | `BUILT_IN_FORGE_API_URL` | `https://api.manus.im` | Manus API endpoint |
-   | `BUILT_IN_FORGE_API_KEY` | From Manus settings | Server-side API key |
-   | `VITE_FRONTEND_FORGE_API_URL` | `https://api.manus.im` | Frontend API endpoint |
-   | `VITE_FRONTEND_FORGE_API_KEY` | From Manus settings | Frontend API key |
-   | `VITE_ANALYTICS_ENDPOINT` | Optional | Analytics tracking endpoint |
-   | `VITE_ANALYTICS_WEBSITE_ID` | Optional | Analytics website ID |
+   | `OWNER_OPEN_ID` | `310519663637432423` | Your Manus user ID |
+   | `OWNER_NAME` | `Ayaan` | Your display name |
    | `VITE_APP_TITLE` | `Zenith` | App display title |
-   | `VITE_APP_LOGO` | Optional | App logo URL |
 
 4. **Deploy:**
    - Click "Create Web Service"
