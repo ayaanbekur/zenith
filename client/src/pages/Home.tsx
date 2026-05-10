@@ -227,6 +227,8 @@ function Header({ route, onNewTask, onShortcuts }: { route: string; onNewTask: (
 
 function DashboardView({ data, tasks, projects, onEditTask, onCompleteTask }: { data: OverviewData | undefined; tasks: Task[]; projects: Project[]; onEditTask: (task: Task) => void; onCompleteTask: (task: Task, checked: boolean) => void }) {
   const stats = data?.analytics.stats;
+  const jpChars = ['禅', '道', '心', '光', '月', '霧', '風', '水'];
+  const randomJp = jpChars[Math.floor(Math.random() * jpChars.length)];
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -235,13 +237,14 @@ function DashboardView({ data, tasks, projects, onEditTask, onCompleteTask }: { 
         <StatCard icon={Clock3} label="Due today" value={stats?.dueToday ?? 0} detail={`${stats?.overdue ?? 0} overdue tasks`} />
         <StatCard icon={FolderPlus} label="Projects" value={projects.length} detail="Active workstreams" />
       </div>
+      <div className="text-center text-xs text-slate-600 flicker-text-slow">✦ {randomJp} ✦</div>
       <div className="grid gap-6 lg:grid-cols-[1.15fr_.85fr]">
-        <Panel title="Upcoming deadlines" subtitle="Sorted by nearest due date">
+        <Panel title="Upcoming deadlines ✦" subtitle="Sorted by nearest due date">
           <div className="space-y-3">
             {(data?.analytics.upcoming ?? []).length ? data?.analytics.upcoming.map(task => <TaskRow key={task.id} task={task} projects={projects} onEdit={onEditTask} onComplete={onCompleteTask} />) : <EmptyState title="No upcoming deadlines" description="Create a task with a due date to populate this focus lane." />}
           </div>
         </Panel>
-        <Panel title="Recent activity" subtitle="Workspace motion trail">
+        <Panel title="Recent activity ✦" subtitle="Workspace motion trail">
           <div className="space-y-3">
             {(data?.activity ?? []).map(activity => <div key={activity.id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-3"><p className="text-sm text-slate-200">{activity.detail}</p><p className="mt-1 text-xs text-slate-500">{format(new Date(activity.createdAt), "MMM d, h:mm a")}</p></div>)}
           </div>
@@ -298,11 +301,11 @@ function CalendarView({ tasks, onEdit }: { tasks: Task[]; onEdit: (task: Task) =
 }
 
 function ProjectsView({ projects, tasks, onNew, onEdit, onDelete }: { projects: Project[]; tasks: Task[]; onNew: () => void; onEdit: (project: Project) => void; onDelete: (id: number) => Promise<unknown> }) {
-  return <Panel title="Projects" subtitle="Color-coded workstreams with live task counts and progress." action={<Button onClick={onNew} className="rounded-2xl bg-indigo-500 text-white"><Plus className="mr-2 h-4 w-4" /> New project</Button>}><div className="grid gap-4 md:grid-cols-2">{projects.map(project => { const total = tasks.filter(task => task.projectId === project.id).length; const done = tasks.filter(task => task.projectId === project.id && task.status === "done").length; const progress = total ? Math.round(done / total * 100) : 0; return <Card key={project.id} className="rounded-[2rem] border-white/10 bg-slate-950/45 p-5"><div className="flex items-start justify-between gap-4"><div><span className="mb-3 block h-3 w-12 rounded-full" style={{ background: project.color }} /><h3 className="text-lg font-semibold text-white">{project.name}</h3><p className="mt-1 text-sm text-slate-500">{project.description || "No description yet."}</p></div><div className="flex gap-2"><Button size="sm" variant="outline" className="rounded-xl border-white/10 bg-white/[0.03]" onClick={() => onEdit(project)}>Edit</Button><Button size="sm" variant="ghost" className="rounded-xl text-red-300" onClick={() => onDelete(project.id).then(() => toast.success("Project deleted"))}><Trash2 className="h-4 w-4" /></Button></div></div><Progress value={progress} className="mt-5 h-2" /><p className="mt-3 text-xs text-slate-500">{done}/{total} tasks complete · {progress}%</p></Card>; })}</div></Panel>;
+  return <Panel title="Projects ✦" subtitle="Color-coded workstreams with live task counts and progress." action={<Button onClick={onNew} className="rounded-2xl bg-indigo-500 text-white"><Plus className="mr-2 h-4 w-4" /> New project</Button>}><div className="grid gap-4 md:grid-cols-2">{projects.map(project => { const total = project.totalTasks; const done = project.doneTasks; const progress = total ? Math.round(done / total * 100) : 0; return <Card key={project.id} className="rounded-[2rem] border-white/10 bg-slate-950/45 p-5"><div className="flex items-start justify-between gap-4"><div><span className="mb-3 block h-3 w-12 rounded-full" style={{ background: project.color }} /><h3 className="text-lg font-semibold text-white">{project.name}</h3><p className="mt-1 text-sm text-slate-500">{project.description || "No description yet."}</p></div><div className="flex gap-2"><Button size="sm" variant="outline" className="rounded-xl border-white/10 bg-white/[0.03]" onClick={() => onEdit(project)}>Edit</Button><Button size="sm" variant="ghost" className="rounded-xl text-red-300" onClick={() => onDelete(project.id).then(() => toast.success("Project deleted"))}><Trash2 className="h-4 w-4" /></Button></div></div><Progress value={progress} className="mt-5 h-2" /><p className="mt-3 text-xs text-slate-500">{done}/{total} tasks complete · {progress}%</p></Card>; })}</div></Panel>;
 }
 
 function AnalyticsView({ data }: { data: OverviewData | undefined }) {
-  return <div className="space-y-6"><AnalyticsCharts data={data} /><Panel title="Project progress" subtitle="Completion health by workstream"><div className="space-y-4">{(data?.analytics.projectProgress ?? []).map(project => <div key={project.id}><div className="mb-2 flex justify-between text-sm"><span className="text-slate-200">{project.name}</span><span className="text-slate-500">{project.progress}%</span></div><Progress value={project.progress} className="h-2" /></div>)}</div></Panel></div>;
+  return <div className="space-y-6"><AnalyticsCharts data={data} /><Panel title="Project progress ✦" subtitle="Completion health by workstream"><div className="space-y-4">{(data?.analytics.projectProgress ?? []).map(project => <div key={project.id}><div className="mb-2 flex justify-between text-sm"><span className="text-slate-200">{project.name}</span><span className="text-slate-500">{project.progress}%</span></div><Progress value={project.progress} className="h-2" /></div>)}</div></Panel></div>;
 }
 
 function AnalyticsCharts({ data, compact = false }: { data: OverviewData | undefined; compact?: boolean }) {
@@ -310,7 +313,7 @@ function AnalyticsCharts({ data, compact = false }: { data: OverviewData | undef
 }
 
 function ProjectRail({ projects, tasks, stats, onNew }: { projects: Project[]; tasks: Task[]; stats: any; onNew: () => void }) {
-  return <aside className="space-y-6"><Panel title="Projects sidebar" subtitle="Live portfolio health" action={<Button size="sm" variant="outline" onClick={onNew} className="rounded-xl border-white/10 bg-white/[0.03]"><Plus className="h-4 w-4" /></Button>}><div className="space-y-4">{projects.map(project => { const total = tasks.filter(task => task.projectId === project.id).length; const done = tasks.filter(task => task.projectId === project.id && task.status === "done").length; const progress = total ? Math.round(done / total * 100) : 0; return <div key={project.id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-3"><div className="mb-2 flex items-center justify-between"><span className="flex items-center gap-2 text-sm text-slate-200"><span className="h-2.5 w-2.5 rounded-full" style={{ background: project.color }} />{project.name}</span><span className="text-xs text-slate-500">{total}</span></div><Progress value={progress} className="h-1.5" /></div>; })}</div></Panel><Panel title="Focus pulse" subtitle="Today’s operating numbers"><div className="grid grid-cols-2 gap-3"><MiniStat label="Active" value={stats?.active ?? 0} /><MiniStat label="Done" value={stats?.completed ?? 0} /><MiniStat label="Overdue" value={stats?.overdue ?? 0} /><MiniStat label="Streak" value={`${stats?.streak ?? 0}d`} /></div></Panel></aside>;
+  return <aside className="space-y-6"><Panel title="Projects sidebar" subtitle="Live portfolio health" action={<Button size="sm" variant="outline" onClick={onNew} className="rounded-xl border-white/10 bg-white/[0.03]"><Plus className="h-4 w-4" /></Button>}><div className="space-y-4">{projects.map(project => { const total = project.totalTasks; const done = project.doneTasks; const progress = total ? Math.round(done / total * 100) : 0; return <div key={project.id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-3"><div className="mb-2 flex items-center justify-between"><span className="flex items-center gap-2 text-sm text-slate-200"><span className="h-2.5 w-2.5 rounded-full" style={{ background: project.color }} />{project.name}</span><span className="text-xs text-slate-500">{total}</span></div><Progress value={progress} className="h-1.5" /></div>; })}</div></Panel><Panel title="Focus pulse" subtitle="Today’s operating numbers"><div className="grid grid-cols-2 gap-3"><MiniStat label="Active" value={stats?.active ?? 0} /><MiniStat label="Done" value={stats?.completed ?? 0} /><MiniStat label="Overdue" value={stats?.overdue ?? 0} /><MiniStat label="Streak" value={`${stats?.streak ?? 0}d`} /></div></Panel></aside>;
 }
 
 function TaskRow({ task, projects, onEdit, onDelete, onComplete }: { task: Task; projects: Project[]; onEdit: (task: Task) => void; onDelete?: (id: number) => Promise<unknown>; onComplete: (task: Task, checked: boolean) => void }) {

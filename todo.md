@@ -22,5 +22,5 @@
 - [x] Validate the application with type checks, tests, status checks, and a final checkpoint
 - [x] Push completed code to the provided GitHub repository if repository access is available (no GitHub remote was configured; the internal project remote remains active)
 - [x] Provide final usage and deployment instructions
-- [ ] Configure TimescaleDB connection from user-provided credentials
-- [ ] Verify Git repository is properly synced with latest checkpoint
+- [x] Configure TimescaleDB connection from user-provided credentials
+- [x] Verify Git repository is properly synced with latest checkpoint

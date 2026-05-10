@@ -5,6 +5,11 @@ import type { InsertUser, User } from "../drizzle/schema";
 
 const { Pool } = pg;
 
+// Suppress Node.js SSL warnings for self-signed certificates in development
+if (process.env.NODE_ENV !== "production") {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+}
+
 type Dialect = "postgres" | "mysql";
 type QueryResult<T = Record<string, unknown>> = { rows: T[]; insertId?: number };
 
@@ -76,7 +81,10 @@ async function createClient(): Promise<DbClient | null> {
 
   const dialect = detectDialect(url);
   if (dialect === "postgres") {
-    const pool = new Pool({ connectionString: url, ssl: url.includes("sslmode=require") ? { rejectUnauthorized: false } : undefined });
+    const pool = new Pool({
+      connectionString: url,
+      ssl: url.includes("sslmode=require") || url.includes("sslmode=prefer") ? { rejectUnauthorized: false } : undefined,
+    });
     return {
       dialect,
       async query<T = Record<string, unknown>>(sql: string, params: unknown[] = []) {
