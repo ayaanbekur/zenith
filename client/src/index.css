@@ -107,11 +107,35 @@
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(ellipse at 20% 50%, rgba(104, 78, 171, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(34, 211, 238, 0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 0%, rgba(255, 193, 7, 0.04) 0%, transparent 40%);
+      radial-gradient(ellipse at 20% 50%, rgba(104, 78, 171, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(34, 211, 238, 0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 0%, rgba(255, 193, 7, 0.06) 0%, transparent 40%),
+      radial-gradient(ellipse at 30% 30%, rgba(168, 85, 247, 0.05) 0%, transparent 60%);
     pointer-events: none;
     z-index: 1;
+    animation: fog-drift 12s ease-in-out infinite;
+  }
+  
+  /* Floating background Japanese characters */
+  body::after {
+    content: "禅 道 心 光 月 霧 風 水 火 木 土 金 時 空 無 有 禅 道 心 光 月 霧 風 水";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: rgba(104, 78, 171, 0.04);
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    line-height: 1.8;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-family: "Noto Sans JP", serif;
+    font-weight: 300;
+    animation: float-chars 20s linear infinite;
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.05);
   }
   
   #root {
@@ -170,6 +194,42 @@
   }
 }
 
+/* Floating background characters animation */
+@keyframes float-chars {
+  0% {
+    opacity: 0.02;
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    opacity: 0.05;
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    opacity: 0.03;
+    transform: translateY(-40px) translateX(-10px);
+  }
+  75% {
+    opacity: 0.04;
+    transform: translateY(-20px) translateX(15px);
+  }
+  100% {
+    opacity: 0.02;
+    transform: translateY(0px) translateX(0px);
+  }
+}
+
+/* Subtle kanji shimmer */
+@keyframes kanji-shimmer {
+  0%, 100% {
+    color: rgba(104, 78, 171, 0.04);
+    text-shadow: 0 0 10px rgba(104, 78, 171, 0.02);
+  }
+  50% {
+    color: rgba(34, 211, 238, 0.06);
+    text-shadow: 0 0 15px rgba(34, 211, 238, 0.04);
+  }
+}
+
 .flicker-text {
   animation: flicker 3s infinite;
 }
@@ -185,10 +245,16 @@
 /* Fog animation */
 @keyframes fog-drift {
   0%, 100% {
-    transform: translateX(0px);
+    transform: translateX(0px) translateY(0px);
+  }
+  25% {
+    transform: translateX(15px) translateY(-5px);
   }
   50% {
-    transform: translateX(10px);
+    transform: translateX(-10px) translateY(5px);
+  }
+  75% {
+    transform: translateX(8px) translateY(-3px);
   }
 }
 
